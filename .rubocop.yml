@@ -1,0 +1,51 @@
+
+inherit_from: .rubocop_todo.yml
+
+Documentation:
+  Enabled: false
+
+LineLength:
+  Enabled: false
+
+SingleSpaceBeforeFirstArg:
+  Enabled: false
+
+CommentIndentation:
+  Enabled: false
+
+Style/Lambda:
+  Enabled: false
+
+GuardClause:
+  MinBodyLength: 2
+
+AsciiComments:
+  Enabled: false
+
+Lint/AssignmentInCondition:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: true
+  Max: 20
+
+BlockDelimiters:
+  Enabled: false
+
+CyclomaticComplexity:
+  Max: 7
+
+AllCops:
+  RunRailsCops: true
+  Include:
+    - '**/Gemfile'
+    - '**/Rakefile'
+  Exclude:
+   - 'bin/*'
+   - 'db/seeds.rb'
+   - 'db/schema.rb'
+   - 'db/migrate/*'
+   - 'vendor/bundle/**/*'
+   - 'config/application.rb'
+   - 'spec/rails_helper.rb'
+   - 'spec/spec_helper.rb'
