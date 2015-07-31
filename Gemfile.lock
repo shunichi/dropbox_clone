@@ -41,6 +41,8 @@ GEM
       ice_nine (~> 0.11.0)
       memoizable (~> 0.4.0)
     addressable (2.3.8)
+    ancestry (2.1.0)
+      activerecord (>= 3.0.0)
     annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
@@ -112,6 +114,8 @@ GEM
       equalizer (~> 0.0.9)
     database_cleaner (1.4.1)
     debug_inspector (0.0.2)
+    default_value_for (3.0.1)
+      activerecord (>= 3.2.0, < 5.0)
     delorean (2.1.0)
       chronic
     devise (3.5.1)
@@ -135,6 +139,8 @@ GEM
     email_spec (1.6.0)
       launchy (~> 2.1)
       mail (~> 2.2)
+    enumerize (0.11.0)
+      activesupport (>= 3.2)
     equalizer (0.0.11)
     erb2haml (0.1.5)
       html2haml
@@ -253,11 +259,14 @@ GEM
     orm_adapter (0.5.0)
     parser (2.2.2.6)
       ast (>= 1.1, < 3.0)
+    pg (0.18.2)
     poltergeist (1.6.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
       multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
+    polyamorous (1.2.0)
+      activerecord (>= 3.0)
     powerpack (0.1.1)
     procto (0.0.2)
     pry (0.10.1)
@@ -327,6 +336,12 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (2.0.0)
     rake (10.4.2)
+    ransack (1.6.6)
+      actionpack (>= 3.0)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      i18n
+      polyamorous (~> 1.2)
     rb-fsevent (0.9.5)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
@@ -450,6 +465,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ancestry
   annotate
   awesome_print
   better_errors
@@ -460,15 +476,18 @@ DEPENDENCIES
   byebug
   capybara
   carrierwave
+  coderay
   coffee-rails (~> 4.1.0)
   coffeelint
   database_cleaner
+  default_value_for
   delorean
   devise
   devise-bootstrap-views
   devise-i18n
   dotenv-rails
   email_spec
+  enumerize
   erb2haml
   factory_girl_rails
   faker
@@ -490,6 +509,7 @@ DEPENDENCIES
   launchy
   letter_opener
   mini_magick
+  pg
   poltergeist
   pry-byebug
   pry-doc
@@ -503,6 +523,7 @@ DEPENDENCIES
   rails-i18n
   rails_12factor
   rails_best_practices
+  ransack
   reek
   rspec-rails
   rubocop

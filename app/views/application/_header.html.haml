@@ -3,7 +3,12 @@
     %ul.list-inline.text-right
       - if user_signed_in?
         %li= image_tag current_user.gravatar_url(size: 20)
+        %li= current_user.email
         %li= link_to 'logout', destroy_user_session_path, method: :delete
       - else
         %li= link_to t('devise.shared.links.sign_in'), new_user_session_path
         %li= link_to t('devise.shared.links.sign_up'), new_user_registration_path
+
+  - if notice.present?
+    .alert.alert-info= notice
+

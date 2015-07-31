@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150730041921) do
+ActiveRecord::Schema.define(version: 20150730234619) do
+
+  create_table "inodes", force: :cascade do |t|
+    t.string   "name"
+    t.string   "inode_type"
+    t.string   "content"
+    t.string   "content_type"
+    t.integer  "file_size"
+    t.string   "ancestry"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "inodes", ["ancestry"], name: "index_inodes_on_ancestry"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -30,9 +43,11 @@ ActiveRecord::Schema.define(version: 20150730041921) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.integer  "inode_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["inode_id"], name: "index_users_on_inode_id"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

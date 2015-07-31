@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
-  devise_for :users
   root to: 'welcome#index'
-  get 'welcome/index'
+  devise_for :users
+
+  resources :inodes
+
+  resources :inodes do
+    get :new_file
+    get :new_directory
+    get :download
+  end
 end

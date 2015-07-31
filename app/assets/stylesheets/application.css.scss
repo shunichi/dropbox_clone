@@ -1,6 +1,12 @@
 /*
  *= require_self
+ *= require coderay
  */
 
 @import 'bootstrap/variables';
 @import 'bootstrap';
+@import 'font-awesome-sprockets';
+@import 'font-awesome';
+
+@import 'header';
+@import 'inode';

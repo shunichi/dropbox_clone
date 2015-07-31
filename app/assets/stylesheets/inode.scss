@@ -1,0 +1,29 @@
+.inode-table {
+  table-layout: auto;
+
+  td:first-child {
+    width: 30px;
+  }
+
+  td:nth-child(3) {
+    width: 100px;
+  }
+
+  td:nth-child(4) {
+    width: 200px;
+  }
+
+  .vcenter {
+    vertical-align: middle;
+  }
+}
+
+.inode-logo {
+  img {
+    width: 40px;
+  }
+}
+
+.inode-list {
+  margin: 8px;
+}
