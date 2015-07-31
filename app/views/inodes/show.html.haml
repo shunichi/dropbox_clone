@@ -2,6 +2,14 @@
   %ul.list-group.inode-list
     %li.list-group-item= link_to 'home', current_user.inode
 
+  - if following_inodes = current_user.following_inodes
+    %ul.list-group.inode-list
+      - following_inodes.each do |inode|
+        %li.list-group-item= link_to "share:#{inode.name}", inode_path(inode)
+
+  %ul.list-group.inode-list
+    %li.list-group-item= link_to 'search', inode_search_path(current_user.inode)
+
   %ul.list-group.inode-list
     - if @inode.directory?
       %li.list-group-item= link_to 'new folder', inode_new_directory_path(@inode)
@@ -9,11 +17,15 @@
     %li.list-group-item= link_to 'delete', @inode, method: :delete
     %li.list-group-item= link_to 'rename', edit_inode_path(@inode)
     - if @inode.directory?
-      %li.list-group-item activity
+      %li.list-group-item= link_to 'activities', inode_activities_path(@inode)
     - if @inode.file?
       %li.list-group-item= link_to 'download', inode_download_path(@inode)
+    %li.list-group-item= link_to 'share', inode_share_path(@inode)
 
 .col-md-10
+  - owner = @inode.root.user
+  %label= owner.email if current_user != owner
+
   %ol.breadcrumb
     - @inode.path.each do |inode|
       - if inode != @inode
