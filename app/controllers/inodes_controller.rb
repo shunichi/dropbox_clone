@@ -1,6 +1,6 @@
 class InodesController < InheritedResources::Base
   before_action :authenticate_user!
-  before_action :set_inode, only: %w(download search edit_share create_share delete_share)
+  before_action :set_inode, only: %w(download search edit_share create_share delete_share activities)
 
   def index
     redirect_to current_user.inode
@@ -14,6 +14,10 @@ class InodesController < InheritedResources::Base
   def new_directory
     @inode = Inode.new(parent_id: params[:inode_id], inode_type: 'directory')
     render :new
+  end
+
+  def create
+    create! { @inode.parent }
   end
 
   def destroy
@@ -44,6 +48,9 @@ class InodesController < InheritedResources::Base
     user = User.find(params[:user_id])
     user.stop_following(@inode)
     redirect_to inode_share_path(@inode), notice: "delete share for #{user.email}"
+  end
+
+  def activities
   end
 
   private

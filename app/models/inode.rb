@@ -31,8 +31,11 @@ class Inode < ActiveRecord::Base
   validates :content, presence: true, if: :file?
 
   has_one :user
+  has_many :inode_activities
 
   before_validation :update_content_attributes
+  after_create :create_add_activity
+  after_destroy :create_remove_activity
 
   def image?
     self.content_type.present? && ( self.content_type.start_with? 'image' )
@@ -46,5 +49,13 @@ class Inode < ActiveRecord::Base
       self.content_type = content.file.content_type
       self.file_size = content.file.size
     end
+  end
+
+  def create_add_activity
+    self.parent.inode_activities.create!(comment: "add #{self.inode_type}: #{self.name}") if self.parent
+  end
+
+  def create_remove_activity
+    self.parent.inode_activities.create!(comment: "remove #{self.inode_type}: #{self.name}") if self.parent
   end
 end

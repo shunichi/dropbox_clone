@@ -17,7 +17,7 @@
     %li.list-group-item= link_to 'delete', @inode, method: :delete
     %li.list-group-item= link_to 'rename', edit_inode_path(@inode)
     - if @inode.directory?
-      %li.list-group-item activity
+      %li.list-group-item= link_to 'activities', inode_activities_path(@inode)
     - if @inode.file?
       %li.list-group-item= link_to 'download', inode_download_path(@inode)
     %li.list-group-item= link_to 'share', inode_share_path(@inode)
