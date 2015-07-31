@@ -19,10 +19,12 @@
 #  confirmed_at           :datetime
 #  confirmation_sent_at   :datetime
 #  unconfirmed_email      :string
+#  inode_id               :integer
 #
 # Indexes
 #
 #  index_users_on_email                 (email) UNIQUE
+#  index_users_on_inode_id              (inode_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 
@@ -33,4 +35,10 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   include Gravtastic
   gravtastic
+
+  belongs_to :inode
+
+  default_value_for :inode do
+    Inode.create(name: 'Dropbox', inode_type: 'directory')
+  end
 end

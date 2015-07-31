@@ -1,11 +1,5 @@
+.jumbotron
+  %h1 Hello, world!
+  %p
+    本サイトは、Rails学習用に作成中のDropboxのコピーサイトです。
 
-.container
-  %h1 Welcome#index
-  %p Find me in app/views/welcome/index.html.haml
-
-  %table.table
-    - I18n.available_locales.each do |locale|
-      %tr
-        %td= locale
-        %td= I18n.t 'helpers.select.prompt', locale: locale
-        %td= I18n.t 'devise.confirmations.confirmed', locale: locale

@@ -1,0 +1,6 @@
+= simple_form_for @inode, html: {multipart: true} do |f|
+  = f.hidden_field :parent_id, value: @inode.parent_id
+  = f.hidden_field :inode_type, value: @inode.inode_type
+  = f.input :name if @inode.directory? || @inode.persisted?
+  = f.file_field :content if @inode.file? && @inode.new_record?
+  = f.button :submit

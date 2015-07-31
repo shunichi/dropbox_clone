@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.2.2'
 gem 'rails', '4.2.3'
-gem 'sqlite3'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
@@ -29,6 +28,11 @@ group :default do
   gem 'carrierwave'
   gem 'mini_magick'
   gem 'inherited_resources'
+  gem 'ancestry'
+  gem 'default_value_for'
+  gem 'enumerize'
+  gem 'ransack'
+  gem 'coderay'
 end
 
 group :development, :test do
@@ -90,7 +94,12 @@ group :development, :test do
   gem 'simplecov'
 end
 
+group :development, :test do
+  gem 'sqlite3'
+end
+
 group :production do
+  gem 'pg'
   gem 'rails_12factor'
   gem 'puma'
 end
