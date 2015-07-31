@@ -8,5 +8,6 @@ Rails.application.routes.draw do
     get :new_file
     get :new_directory
     get :download
+    get :search
   end
 end

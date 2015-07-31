@@ -24,6 +24,14 @@ class InodesController < InheritedResources::Base
     send_file(inode.content.path, filename: inode.name, length: inode.file_size)
   end
 
+  def search
+    @inode = Inode.find(params[:inode_id])
+
+    if @key = params[:key]
+      @inodes = @inode.subtree.ransack(name_cont: @key).result if @key.present?
+    end
+  end
+
   private
 
   def inode_params
