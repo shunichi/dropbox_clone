@@ -24,6 +24,11 @@
     * 共有リンク生成
         * リンクURLを共有相手へメール送信
 
+## Demo
+ * url: https://dropbox-clone.herokuapp.com
+ * email: user@example.com
+ * password: password
+
 ## 時間配分
 
 * 環境設定 (5m)
