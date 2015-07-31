@@ -9,5 +9,8 @@ Rails.application.routes.draw do
     get :new_directory
     get :download
     get :search
+    get :share, to: 'inodes#edit_share'
+    post :share, to: 'inodes#create_share'
+    delete :share, to: 'inodes#delete_share'
   end
 end

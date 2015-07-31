@@ -33,6 +33,7 @@ group :default do
   gem 'enumerize'
   gem 'ransack'
   gem 'coderay'
+  gem 'acts_as_follower'
 end
 
 group :development, :test do

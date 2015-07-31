@@ -20,6 +20,7 @@
 class Inode < ActiveRecord::Base
   extend Enumerize
   has_ancestry
+  acts_as_followable
 
   enumerize :inode_type, in: %w(file directory), predicates: true
   default_value_for :inode_type, 'file'
@@ -28,6 +29,8 @@ class Inode < ActiveRecord::Base
 
   validates :name, presence: true
   validates :content, presence: true, if: :file?
+
+  has_one :user
 
   before_validation :update_content_attributes
 

@@ -37,6 +37,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    acts_as_follower (0.2.1)
     adamantium (0.2.0)
       ice_nine (~> 0.11.0)
       memoizable (~> 0.4.0)
@@ -465,6 +466,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_follower
   ancestry
   annotate
   awesome_print
