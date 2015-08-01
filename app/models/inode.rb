@@ -30,7 +30,7 @@ class Inode < ActiveRecord::Base
   validates :name, presence: true
   validates :content, presence: true, if: :file?
 
-  has_one :user
+  has_one :user, dependent: :restrict_with_error
   has_many :inode_activities
 
   before_validation :update_content_attributes
@@ -56,6 +56,9 @@ class Inode < ActiveRecord::Base
   end
 
   def create_remove_activity
-    self.parent.inode_activities.create!(comment: "remove #{self.inode_type}: #{self.name}") if self.parent
+    begin
+      self.parent.inode_activities.create!(comment: "remove #{self.inode_type}: #{self.name}") if self.parent
+    rescue ActiveRecord::RecordNotFound => _e
+    end
   end
 end
