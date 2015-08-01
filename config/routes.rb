@@ -11,5 +11,11 @@ Rails.application.routes.draw do
     get :share, to: 'inodes#edit_share'
     post :share, to: 'inodes#create_share'
     delete :share, to: 'inodes#delete_share'
+    post :share_link, to: 'inodes#create_share_link'
+    delete :share_link, to: 'inodes#delete_share_link'
+  end
+
+  resources :shares, only: [:show] do
+    resources :inodes, only: [:index, :show], controller: 'shares/inodes'
   end
 end

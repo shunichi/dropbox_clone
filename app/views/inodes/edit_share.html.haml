@@ -9,9 +9,20 @@
     = text_field_tag :email, nil, class: 'form-control', placeholder: 'Email'
     -#= submit_tag 'add share', class: 'btn btn-default'
 
+  %label shared user
+
   %table.table
     - @followers.each do |follower|
       %tr
         %td= follower.email
         %td= link_to 'delete', inode_share_path(@inode, user_id:follower), method: :delete
 
+  %label shared links
+
+  %table.table
+    - @inode.shares.each do |share|
+      %tr
+        %td= link_to share_url(share, access_token: share.access_token), share_url(share, access_token: share.access_token)
+        %td= link_to 'delete', inode_share_link_path(@inode, share_id: share), method: :delete
+
+  %div= link_to 'new shared link', inode_share_link_path(@inode), method: :post

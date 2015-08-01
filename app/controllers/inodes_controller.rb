@@ -1,6 +1,6 @@
 class InodesController < InheritedResources::Base
   before_action :authenticate_user!
-  before_action :set_inode, only: %w(download search edit_share create_share delete_share activities)
+  before_action :set_inode, only: %w(download search edit_share create_share delete_share activities create_share_link delete_share_link)
 
   def index
     redirect_to current_user.inode
@@ -51,6 +51,17 @@ class InodesController < InheritedResources::Base
   end
 
   def activities
+  end
+
+  def create_share_link
+    @inode.shares.create!
+    redirect_to inode_share_path(@inode)
+  end
+
+  def delete_share_link
+    share = @inode.shares.find(params[:share_id])
+    share.destroy!
+    redirect_to inode_share_path(@inode)
   end
 
   private

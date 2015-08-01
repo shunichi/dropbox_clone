@@ -24,3 +24,5 @@ end
 other_user = User.create(email: 'user11@example.com', password: 'password', confirmed_at: Time.now.utc)
 user.follow(other_user.inode)
 Inode.create(parent: other_user.inode, inode_type: 'file', remote_content_url: 'http://iphone-mania.jp/wp-content/uploads/2015/01/google-logo1-e1420800266215.jpg')
+
+user.inode.shares.create!

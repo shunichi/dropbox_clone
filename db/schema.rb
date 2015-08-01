@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150731184034) do
+ActiveRecord::Schema.define(version: 20150801030724) do
 
   create_table "follows", force: :cascade do |t|
     t.integer  "followable_id",                   null: false
@@ -47,6 +47,15 @@ ActiveRecord::Schema.define(version: 20150731184034) do
   end
 
   add_index "inodes", ["ancestry"], name: "index_inodes_on_ancestry"
+
+  create_table "shares", force: :cascade do |t|
+    t.string   "access_token", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "inode_id"
+  end
+
+  add_index "shares", ["inode_id"], name: "index_shares_on_inode_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

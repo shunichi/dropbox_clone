@@ -32,6 +32,7 @@ class Inode < ActiveRecord::Base
 
   has_one :user, dependent: :restrict_with_error
   has_many :inode_activities
+  has_many :shares
 
   before_validation :update_content_attributes
   after_create :create_add_activity
