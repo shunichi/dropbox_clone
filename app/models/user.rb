@@ -40,6 +40,10 @@ class User < ActiveRecord::Base
 
   belongs_to :inode
 
+  def accessible?(inode)
+    self.inode.include?(inode) || self.following_inodes.any? {|x| x.include?(inode) }
+  end
+
   default_value_for :inode do
     Inode.create(name: 'Dropbox', inode_type: 'directory')
   end

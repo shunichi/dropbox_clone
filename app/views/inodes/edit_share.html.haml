@@ -12,7 +12,7 @@
   %label shared user
 
   %table.table
-    - @followers.each do |follower|
+    - @inode.followers.each do |follower|
       %tr
         %td= follower.email
         %td= link_to 'delete', inode_share_path(@inode, user_id:follower), method: :delete

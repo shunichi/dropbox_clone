@@ -16,6 +16,10 @@
 class Share < ActiveRecord::Base
   belongs_to :inode
 
+  def session_key
+    "share_#{self.id}"
+  end
+
   default_value_for :access_token do
     SecureRandom.hex(16)
   end

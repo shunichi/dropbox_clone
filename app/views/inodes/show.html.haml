@@ -19,7 +19,7 @@
     - if @inode.directory?
       %li.list-group-item= link_to 'activities', inode_activities_path(@inode)
     - if @inode.file?
-      %li.list-group-item= link_to 'download', inode_download_path(@inode)
+      %li.list-group-item= link_to 'download', "#{@inode.content_url.to_s}?disposition=attachment"
     %li.list-group-item= link_to 'share', inode_share_path(@inode)
 
 .col-md-10

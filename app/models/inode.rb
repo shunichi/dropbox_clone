@@ -42,6 +42,10 @@ class Inode < ActiveRecord::Base
     self.content_type.present? && ( self.content_type.start_with? 'image' )
   end
 
+  def include?(inode)
+    self == inode || self.subtree.exists?(id: inode.id)
+  end
+
   private
 
   def update_content_attributes

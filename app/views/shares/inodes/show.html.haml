@@ -16,7 +16,7 @@
       %tr
         %td
           - if inode.image?
-            = image_tag inode.content_url(:thumb).to_s
+            = image_tag "#{inode.content_url(:thumb).to_s}?share_id=#{@share.id}"
           - elsif inode.directory?
             %i.fa.fa-3x.fa-folder-o
           - else
@@ -30,7 +30,7 @@
 - if @inode.file?
   - if @inode.image?
     %p
-      = image_tag @inode.content_url.to_s
+      = image_tag "#{@inode.content_url.to_s}?share_id=#{@share.id}"
   - else
     -#%pre.CodeRay= CodeRay.scan_file(@inode.content.path).html.html_safe
     %pre.CodeRay= code_ray(@inode)

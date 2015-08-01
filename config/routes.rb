@@ -18,4 +18,6 @@ Rails.application.routes.draw do
   resources :shares, only: [:show] do
     resources :inodes, only: [:index, :show], controller: 'shares/inodes'
   end
+
+  get '/uploads/:id/:basename.:extension', to: 'static_access#download'
 end
