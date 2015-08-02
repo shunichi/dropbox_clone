@@ -21,6 +21,7 @@ class Inode < ActiveRecord::Base
   extend Enumerize
   has_ancestry
   acts_as_followable
+  attr_accessor :original_inode_id
 
   enumerize :inode_type, in: %w(file directory), predicates: true
   default_value_for :inode_type, 'file'
@@ -49,6 +50,8 @@ class Inode < ActiveRecord::Base
   private
 
   def update_content_attributes
+    self.content = File.open(Rails.root.join('uploads', original_inode_id, name)) if original_inode_id
+
     if content.present? && content_changed?
       self.name = content.filename
       self.content_type = content.file.content_type

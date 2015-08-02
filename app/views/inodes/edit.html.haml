@@ -1,1 +1,25 @@
-= render 'form'
+= breadcrumb(@inode)
+
+- if @mode == 'rename'
+  = simple_form_for @inode, html: {multipart: true} do |f|
+    = f.input :name
+    = f.button :submit, 'rename'
+    = link_to 'Cancel', @inode, class: 'btn btn-default'
+
+- if @mode == 'move'
+  = simple_form_for @inode, html: {multipart: true} do |f|
+    = f.collection_select :parent_id, @inode.root.subtree.where(inode_type: 'directory'), :id, :name, {}, { class: 'form-control' }
+    %br
+    = f.button :submit, 'move'
+    = link_to 'Cancel', @inode, class: 'btn btn-default'
+
+- if @mode == 'copy'
+  = simple_form_for Inode.new, html: {multipart: true} do |f|
+    = f.collection_select :parent_id, @inode.root.subtree.where(inode_type: 'directory'), :id, :name, {}, { class: 'form-control' }
+    %br
+    = f.hidden_field :inode_type, value: @inode.inode_type
+    = f.hidden_field :name, value: @inode.name
+    = f.hidden_field :original_inode_id, value: @inode.id
+    = f.button :submit, 'copy'
+    = link_to 'Cancel', @inode, class: 'btn btn-default'
+

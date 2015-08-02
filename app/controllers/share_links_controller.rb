@@ -8,8 +8,7 @@ class ShareLinksController < ApplicationController
   end
 
   def destroy
-    share = @inode.shares.find(params[:id])
-    share.destroy!
+    @inode.shares.find(params[:id]).destroy!
     redirect_to inode_shares_path(@inode)
   end
 end

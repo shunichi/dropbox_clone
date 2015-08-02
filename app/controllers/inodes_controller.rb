@@ -4,6 +4,7 @@ class InodesController < InheritedResources::Base
 
   before_action :authenticate_user!
   before_action :set_inode, :check_permission, except: [:index, :new, :create]
+  before_action :set_mode, only: [:edit]
 
   def index
     redirect_to current_user.inode
@@ -31,7 +32,11 @@ class InodesController < InheritedResources::Base
   private
 
   def inode_params
-    params.require(:inode).permit(:name, :inode_type, :parent_id, :content)
+    params.require(:inode).permit(:name, :inode_type, :parent_id, :content, :original_inode_id)
+  end
+
+  def set_mode
+    @mode = params[:mode]
   end
 end
 
