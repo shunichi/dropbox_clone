@@ -30,6 +30,7 @@ class Inode < ActiveRecord::Base
 
   validates :name, presence: true
   validates :content, presence: true, if: :file?
+  validates :file_size, numericality: { less_than_or_equal_to: 0.5.megabytes.to_i }, if: :file?
 
   has_one :user, dependent: :restrict_with_error
   has_many :inode_activities
