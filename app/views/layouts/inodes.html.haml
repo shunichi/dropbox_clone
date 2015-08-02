@@ -3,6 +3,7 @@
     = render 'sidebar', inode: @inode.new_record? ? @inode.parent : @inode
 
   .col-md-10
+    = breadcrumb(@inode)
     = yield
 
 = render template: 'layouts/application'

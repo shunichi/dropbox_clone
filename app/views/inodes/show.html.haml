@@ -1,13 +1,1 @@
-= breadcrumb(@inode)
 = render 'inode_preview', inode: @inode, sort_key: @sort_key
-
--#.col-md-2
--#  = render 'sidebar', inode: @inode
--#
--#.col-md-10
--#  - owner = @inode.root.user
--#  %label= owner.email if current_user != owner
--#
--#  = breadcrumb(@inode)
--#  = render 'inode_preview', inode: @inode, sort_key: @sort_key
-
