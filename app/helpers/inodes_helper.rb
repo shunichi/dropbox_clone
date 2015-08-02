@@ -9,6 +9,13 @@ module InodesHelper
 
   def breadcrumb(inode, share = nil)
     content_tag :ol, class: 'breadcrumb' do
+      if (owner = @inode.root.user) != current_user
+        s = content_tag :li do
+          owner.email
+        end
+        concat s
+      end
+
       inode.path.each do |i|
         s = content_tag :li do
           if i != inode

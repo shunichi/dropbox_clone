@@ -1,0 +1,8 @@
+= content_for :content do
+  .col-md-2
+    = render 'sidebar', inode: @inode.new_record? ? @inode.parent : @inode
+
+  .col-md-10
+    = yield
+
+= render template: 'layouts/application'

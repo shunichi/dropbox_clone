@@ -18,6 +18,13 @@
   }
 }
 
+.activities-table {
+  table-layout: auto;
+  td:nth-child(2) {
+    width: 200px;
+  }
+}
+
 .inode-logo {
   img {
     width: 40px;

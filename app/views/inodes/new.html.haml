@@ -3,5 +3,4 @@
   = f.hidden_field :inode_type, value: @inode.inode_type
   = f.input :name if @inode.directory?
   = f.file_field :content if @inode.file?
-  = f.button :submit, 'create'
-  = link_to 'Cancel', @inode.parent, class: 'btn btn-default'
+  = f.button :submit, @inode.directory? ? 'create folder' : 'upload file'
