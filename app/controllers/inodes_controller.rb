@@ -57,7 +57,8 @@ class InodesController < InheritedResources::Base
   end
 
   def create_share_link
-    @inode.shares.create!
+    share = @inode.shares.create!(email: params[:email])
+    Message.shared_link(share).deliver
     redirect_to inode_share_path(@inode)
   end
 

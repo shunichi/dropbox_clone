@@ -3,26 +3,38 @@
     %li.list-group-item= link_to 'home', current_user.inode
 
 .col-md-10
-  %label= @inode.path.pluck(:name).join('/')
+  %ol.breadcrumb
+    - @inode.path.pluck(:name).each do |name|
+      %li= name
 
-  = form_tag inode_share_path(@inode) do
-    = text_field_tag :email, nil, class: 'form-control', placeholder: 'Email'
-    -#= submit_tag 'add share', class: 'btn btn-default'
+  .panel.panel-default
+    .panel-heading
+      shared user
+    .panel-body
+      = form_tag inode_share_path(@inode) do
+        = text_field_tag :email, nil, class: 'form-control', placeholder: 'Email'
+        = submit_tag 'share to user', class: 'btn btn-default'
 
-  %label shared user
+      %table.table
+        - @inode.followers.each do |follower|
+          %tr
+            %td= follower.email
+            %td= link_to 'delete', inode_share_path(@inode, user_id:follower), method: :delete
 
-  %table.table
-    - @inode.followers.each do |follower|
-      %tr
-        %td= follower.email
-        %td= link_to 'delete', inode_share_path(@inode, user_id:follower), method: :delete
+  .panel.panel-default
+    .panel-heading
+      shared links
+    .panel-body
+      = form_tag inode_share_link_path(@inode) do
+        = text_field_tag :email, nil, class: 'form-control', placeholder: 'Email'
+        = submit_tag 'send shared_link', class: 'btn btn-default'
 
-  %label shared links
+      %table.table
+        - @inode.shares.each do |share|
+          %tr
+            %td= share.email
+            %td= link_to share_url(share, access_token: share.access_token), share_url(share, access_token: share.access_token)
+            -#%td= link_to share.url, share.url
+            %td= link_to 'delete', inode_share_link_path(@inode, share_id: share), method: :delete
 
-  %table.table
-    - @inode.shares.each do |share|
-      %tr
-        %td= link_to share_url(share, access_token: share.access_token), share_url(share, access_token: share.access_token)
-        %td= link_to 'delete', inode_share_link_path(@inode, share_id: share), method: :delete
-
-  %div= link_to 'new shared link', inode_share_link_path(@inode), method: :post
+      -#%div= link_to 'new shared link', inode_share_link_path(@inode), method: :post

@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20150801030724) do
 
   create_table "shares", force: :cascade do |t|
     t.string   "access_token", null: false
+    t.string   "email",        null: false
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "inode_id"
