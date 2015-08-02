@@ -30,8 +30,9 @@ class Inode < ActiveRecord::Base
   validates :name, presence: true
   validates :content, presence: true, if: :file?
 
-  has_one :user
+  has_one :user, dependent: :restrict_with_error
   has_many :inode_activities
+  has_many :shares
 
   before_validation :update_content_attributes
   after_create :create_add_activity
@@ -39,6 +40,10 @@ class Inode < ActiveRecord::Base
 
   def image?
     self.content_type.present? && ( self.content_type.start_with? 'image' )
+  end
+
+  def include?(inode)
+    self == inode || self.subtree.exists?(id: inode.id)
   end
 
   private
@@ -56,6 +61,9 @@ class Inode < ActiveRecord::Base
   end
 
   def create_remove_activity
-    self.parent.inode_activities.create!(comment: "remove #{self.inode_type}: #{self.name}") if self.parent
+    begin
+      self.parent.inode_activities.create!(comment: "remove #{self.inode_type}: #{self.name}") if self.parent
+    rescue ActiveRecord::RecordNotFound => _e
+    end
   end
 end

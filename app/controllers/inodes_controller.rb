@@ -1,9 +1,13 @@
 class InodesController < InheritedResources::Base
   before_action :authenticate_user!
-  before_action :set_inode, only: %w(download search edit_share create_share delete_share activities)
+  before_action :set_inode, :check_permission, only: %w(show download search edit_share create_share delete_share activities create_share_link delete_share_link)
 
   def index
     redirect_to current_user.inode
+  end
+
+  def show
+    show!
   end
 
   def new_file
@@ -24,10 +28,6 @@ class InodesController < InheritedResources::Base
     destroy! { @inode.parent }
   end
 
-  def download
-    send_file(@inode.content.path, filename: @inode.name, length: @inode.file_size)
-  end
-
   def search
     if @key = params[:key]
       @inodes = @inode.subtree.ransack(name_cont: @key).result if @key.present?
@@ -35,7 +35,6 @@ class InodesController < InheritedResources::Base
   end
 
   def edit_share
-    @followers = @inode.followers
   end
 
   def create_share
@@ -53,6 +52,17 @@ class InodesController < InheritedResources::Base
   def activities
   end
 
+  def create_share_link
+    @inode.shares.create!
+    redirect_to inode_share_path(@inode)
+  end
+
+  def delete_share_link
+    share = @inode.shares.find(params[:share_id])
+    share.destroy!
+    redirect_to inode_share_path(@inode)
+  end
+
   private
 
   def inode_params
@@ -60,7 +70,7 @@ class InodesController < InheritedResources::Base
   end
 
   def set_inode
-    @inode = Inode.find(params[:inode_id])
+    @inode = Inode.find(params[:inode_id] || params[:id])
   end
 end
 
