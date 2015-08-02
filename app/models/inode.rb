@@ -57,12 +57,16 @@ class Inode < ActiveRecord::Base
   end
 
   def create_add_activity
-    self.parent.inode_activities.create!(comment: "add #{self.inode_type}: #{self.name}") if self.parent
+    create_activity("add #{self.inode_type}: #{self.name}")
   end
 
   def create_remove_activity
+    create_activity("remove #{self.inode_type}: #{self.name}")
+  end
+
+  def create_activity(comment)
     begin
-      self.parent.inode_activities.create!(comment: "remove #{self.inode_type}: #{self.name}") if self.parent
+      self.parent.inode_activities.create!(comment: comment) if self.parent
     rescue ActiveRecord::RecordNotFound => _e
     end
   end

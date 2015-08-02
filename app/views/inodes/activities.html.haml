@@ -3,12 +3,7 @@
     %li.list-group-item= link_to 'home', current_user.inode
 
 .col-md-10
-  %ol.breadcrumb
-    - @inode.path.each do |inode|
-      - if inode != @inode
-        %li= link_to inode.name, inode
-      - else
-        %li= inode.name
+  = breadcrumb(@inode)
 
   %table.table
     - @inode.inode_activities.each do |activity|

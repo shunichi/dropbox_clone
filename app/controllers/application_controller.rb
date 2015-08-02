@@ -6,6 +6,6 @@ class ApplicationController < ActionController::Base
   protected
 
   def set_inode
-    @inode = Inode.find(params[:id])
+    @inode = Inode.find(params[:inode_id] || params[:id])
   end
 end

@@ -6,4 +6,24 @@ module InodesHelper
       inode.name
     end
   end
+
+  def breadcrumb(inode, share = nil)
+    content_tag :ol, class: 'breadcrumb' do
+      inode.path.each do |i|
+        s = content_tag :li do
+          if i != inode
+            if share
+              concat link_to i.name, share_inode_path(share, i)
+            else
+              concat link_to i.name, i
+            end
+          else
+            concat i.name
+          end
+        end
+
+        concat s
+      end
+    end
+  end
 end

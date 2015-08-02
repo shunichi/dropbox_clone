@@ -1,0 +1,40 @@
+.col-md-2
+  %ul.list-group.inode-list
+    %li.list-group-item= link_to 'home', current_user.inode
+
+.col-md-10
+  = breadcrumb(@inode)
+
+  .panel.panel-default
+    .panel-heading
+      shared user
+    .panel-body
+      = form_tag inode_shares_path(@inode) do
+        .input-group
+          = text_field_tag :email, nil, class: 'form-control', placeholder: 'Email'
+          .input-group-btn
+            = submit_tag 'share to user', class: 'btn btn-default'
+
+      %table.table
+        - @inode.followers.each do |follower|
+          %tr
+            %td= follower.email
+            %td= link_to 'delete', inode_share_path(@inode, follower), method: :delete, data: { confirm: 'Are you sure?' }
+
+  .panel.panel-default
+    .panel-heading
+      shared links
+    .panel-body
+      = form_tag inode_share_links_path(@inode) do
+        .input-group
+          = text_field_tag :email, nil, class: 'form-control', placeholder: 'Email'
+          .input-group-btn
+            = submit_tag 'send shared_link', class: 'btn btn-default'
+
+      %table.table
+        - @inode.shares.each do |share|
+          %tr
+            %td= share.email
+            - share_link_url = share_inode_url(share, share.inode, access_token: share.access_token)
+            %td= link_to share_link_url, share_link_url
+            %td= link_to 'delete', inode_share_link_path(@inode, share), method: :delete, data: { confirm: 'Are you sure?' }

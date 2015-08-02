@@ -4,7 +4,7 @@
 
 .col-md-10
   .inode-search-box
-    = form_tag inode_search_path(@inode), method: :get do
+    = form_tag search_inode_path(@inode), method: :get do
       = text_field_tag :key, @key, class: 'form-control', placeholder: 'Search for...'
 
   - if @inodes.present?
