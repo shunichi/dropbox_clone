@@ -27,13 +27,19 @@ Lint/AssignmentInCondition:
 
 Metrics/AbcSize:
   Enabled: true
-  Max: 20
+  Max: 41
 
 BlockDelimiters:
   Enabled: false
 
 CyclomaticComplexity:
   Max: 7
+
+GuardClause:
+  MinBodyLength: 4
+
+MethodLength:
+  Max: 22
 
 AllCops:
   RunRailsCops: true
