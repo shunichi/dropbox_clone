@@ -13,7 +13,7 @@
 
 - if inode.file?
   - if inode.image?
-    %p
+    .inode_preview
       - if share
         = image_tag "#{inode.content_url.to_s}?share_id=#{share.id}"
       - else
