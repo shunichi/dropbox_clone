@@ -39,8 +39,12 @@ class InodesController < InheritedResources::Base
 
   def create_share
     user = User.find_by(email: params[:email])
-    user.follow(@inode)
-    redirect_to inode_share_path(@inode), notice: "add share for #{user.email}"
+    if user
+      user.follow(@inode)
+      redirect_to inode_share_path(@inode), notice: "add share for #{user.email}"
+    else
+      redirect_to inode_share_path(@inode), notice: "can't find user"
+    end
   end
 
   def delete_share
