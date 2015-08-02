@@ -1,9 +1,19 @@
 class SharesController < ApplicationController
-  def show
-    @share = Share.find(params[:id])
-    if access_token = params[:access_token]
-      session[@share.session_key] = access_token
-      redirect_to share_inode_path(@share, @share.inode)
+  before_action :set_inode, :check_permission
+
+  def create
+    user = User.find_by(email: params[:email])
+    if user
+      user.follow(@inode)
+      redirect_to inode_shares_path(@inode), notice: "add share for #{user.email}"
+    else
+      redirect_to inode_shares_path(@inode), notice: "can't find user"
     end
+  end
+
+  def destroy
+    user = User.find(params[:id])
+    user.stop_following(@inode)
+    redirect_to inode_shares_path(@inode), notice: "delete share for #{user.email}"
   end
 end

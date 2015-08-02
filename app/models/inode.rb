@@ -21,6 +21,7 @@ class Inode < ActiveRecord::Base
   extend Enumerize
   has_ancestry
   acts_as_followable
+  attr_accessor :original_inode_id
 
   enumerize :inode_type, in: %w(file directory), predicates: true
   default_value_for :inode_type, 'file'
@@ -29,6 +30,7 @@ class Inode < ActiveRecord::Base
 
   validates :name, presence: true
   validates :content, presence: true, if: :file?
+  validates :file_size, numericality: { less_than_or_equal_to: 0.5.megabytes.to_i }, if: :file?
 
   has_one :user, dependent: :restrict_with_error
   has_many :inode_activities
@@ -49,6 +51,8 @@ class Inode < ActiveRecord::Base
   private
 
   def update_content_attributes
+    self.content = File.open(Rails.root.join('uploads', original_inode_id, name)) if original_inode_id
+
     if content.present? && content_changed?
       self.name = content.filename
       self.content_type = content.file.content_type
@@ -57,12 +61,16 @@ class Inode < ActiveRecord::Base
   end
 
   def create_add_activity
-    self.parent.inode_activities.create!(comment: "add #{self.inode_type}: #{self.name}") if self.parent
+    create_activity("add #{self.inode_type}: #{self.name}")
   end
 
   def create_remove_activity
+    create_activity("remove #{self.inode_type}: #{self.name}")
+  end
+
+  def create_activity(comment)
     begin
-      self.parent.inode_activities.create!(comment: "remove #{self.inode_type}: #{self.name}") if self.parent
+      self.parent.inode_activities.create!(comment: comment) if self.parent
     rescue ActiveRecord::RecordNotFound => _e
     end
   end

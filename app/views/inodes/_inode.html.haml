@@ -1,0 +1,21 @@
+- share = nil unless defined? share
+
+%tr
+  %td
+    - if inode.image?
+      - if local_assigns[:share]
+        = image_tag "#{inode.content_url(:thumb).to_s}?share_id=#{share.id}"
+      - else
+        = image_tag inode.content_url(:thumb).to_s
+    - elsif inode.directory?
+      %i.fa.fa-3x.fa-folder-o
+    - else
+      %i.fa.fa-3x.fa-file-o
+  - if local_assigns[:share]
+    %td.vcenter= link_to title, share_inode_path(share, inode)
+  - else
+    %td.vcenter= link_to title, inode
+  %td.vcenter
+    = number_to_human_size(inode.file_size)
+  %td.vcenter
+    = inode.created_at

@@ -1,2 +1,20 @@
-= render 'form'
-= link_to 'Back', inodes_path
+- if @mode == 'rename'
+  = simple_form_for @inode, html: {multipart: true} do |f|
+    = f.input :name
+    = f.button :submit, 'rename'
+
+- if @mode == 'move'
+  = simple_form_for @inode, html: {multipart: true} do |f|
+    = f.collection_select :parent_id, @inode.root.subtree.where(inode_type: 'directory'), :id, :name, {}, { class: 'form-control' }
+    %br
+    = f.button :submit, 'move'
+
+- if @mode == 'copy'
+  = simple_form_for Inode.new, html: {multipart: true} do |f|
+    = f.collection_select :parent_id, @inode.root.subtree.where(inode_type: 'directory'), :id, :name, {}, { class: 'form-control' }
+    %br
+    = f.hidden_field :inode_type, value: @inode.inode_type
+    = f.hidden_field :name, value: @inode.name
+    = f.hidden_field :original_inode_id, value: @inode.id
+    = f.button :submit, 'copy'
+

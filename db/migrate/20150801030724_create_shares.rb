@@ -2,6 +2,7 @@ class CreateShares < ActiveRecord::Migration
   def change
     create_table :shares do |t|
       t.string :access_token, null: false
+      t.string :email, null: false
 
       t.timestamps null: false
     end

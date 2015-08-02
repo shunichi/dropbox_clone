@@ -1,2 +1,6 @@
-= render 'form'
-= link_to 'Back', inode_path(@inode.parent)
+= simple_form_for @inode, html: {multipart: true} do |f|
+  = f.hidden_field :parent_id, value: @inode.parent_id
+  = f.hidden_field :inode_type, value: @inode.inode_type
+  = f.input :name if @inode.directory?
+  = f.file_field :content if @inode.file?
+  = f.button :submit, @inode.directory? ? 'create folder' : 'upload file'

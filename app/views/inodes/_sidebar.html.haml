@@ -1,0 +1,25 @@
+%ul.list-group.inode-list
+  %li.list-group-item= link_to 'home', current_user.inode
+
+- if following_inodes = current_user.following_inodes
+  %ul.list-group.inode-list
+    - following_inodes.each do |inode|
+      %li.list-group-item= link_to "share:#{inode.name}", inode_path(inode)
+
+- if inode.directory?
+  %ul.list-group.inode-list
+    %li.list-group-item= link_to 'search', search_inode_path(inode)
+
+%ul.list-group.inode-list
+  - if inode.directory?
+    %li.list-group-item= link_to 'new folder', new_inode_inode_path(inode, inode_type: 'directory')
+    %li.list-group-item= link_to 'upload file', new_inode_inode_path(inode, inode_type: 'file')
+  %li.list-group-item= link_to 'delete', inode, method: :delete, data: { confirm: 'Are you sure?' }
+  %li.list-group-item= link_to 'rename', edit_inode_path(inode, mode: 'rename')
+  - if inode.file?
+    %li.list-group-item= link_to 'move', edit_inode_path(inode, mode: 'move')
+    %li.list-group-item= link_to 'copy', edit_inode_path(inode, mode: 'copy')
+    %li.list-group-item= link_to 'download', "#{inode.content_url.to_s}?disposition=attachment"
+  - if inode.directory?
+    %li.list-group-item= link_to 'activities', activities_inode_path(inode)
+  %li.list-group-item= link_to 'shares', inode_shares_path(inode)
