@@ -5,6 +5,7 @@ class InodesController < InheritedResources::Base
   before_action :authenticate_user!
   before_action :set_inode, :check_permission, except: [:index, :new, :create]
   before_action :set_mode, only: [:edit]
+  before_action :set_sort_key, only: [:show]
 
   def index
     redirect_to current_user.inode
@@ -37,6 +38,10 @@ class InodesController < InheritedResources::Base
 
   def set_mode
     @mode = params[:mode]
+  end
+
+  def set_sort_key
+    @sort_key = params[:sort]
   end
 end
 

@@ -30,5 +30,5 @@
   %label= owner.email if current_user != owner
 
   = breadcrumb(@inode)
-  = render 'inode_preview', inode: @inode
+  = render 'inode_preview', inode: @inode, sort_key: @sort_key
 

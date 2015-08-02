@@ -1,10 +1,16 @@
 - share = nil unless defined? share
+- sort_key = nil unless defined? sort_key
 
 - if inode.directory?
   %table.table.inode-table
+    %tr
+      %th
+      %th= link_to Inode.human_attribute_name(:name), sort: :name
+      %th= link_to Inode.human_attribute_name(:file_size), sort: :file_size
+      %th= link_to Inode.human_attribute_name(:created_at), sort: :created_at
     - if parent = inode.parent
       = render 'inodes/inode', inode: parent, title: '..', share: share
-    - inode.children.each do |inode|
+    - inode.children.order(sort_key).each do |inode|
       = render 'inodes/inode', inode: inode, title: inode.name, share: share
 
 - if inode.file?
