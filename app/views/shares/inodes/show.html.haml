@@ -11,7 +11,7 @@
       %tr
         %td
           %i.fa.fa-3x.fa-folder-o
-        %td.vcenter= link_to '..', parent
+        %td.vcenter= link_to '..', share_inode_path(@share, parent)
     - @inode.children.each do |inode|
       %tr
         %td
