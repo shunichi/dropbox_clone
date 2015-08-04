@@ -34,6 +34,10 @@ group :default do
   gem 'ransack'
   gem 'coderay'
   gem 'acts_as_follower'
+
+  source 'https://rails-assets.org' do
+    gem 'rails-assets-bootstrap-fileinput'
+  end
 end
 
 group :development, :test do
