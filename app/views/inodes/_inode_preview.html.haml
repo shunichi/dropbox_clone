@@ -1,5 +1,6 @@
-- share = nil unless defined? share
-- sort_key = nil unless defined? sort_key
+-# よりシンプルに書けます(さらに言うと、実は何も書かなくてもエラーにならないっぽい)
+- share ||= nil
+- sort_key ||= nil
 
 - if inode.directory?
   %table.table.inode-table

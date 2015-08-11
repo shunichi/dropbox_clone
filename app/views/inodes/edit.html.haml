@@ -1,6 +1,7 @@
 - if @mode == 'rename'
   = simple_form_for @inode, html: {multipart: true} do |f|
-    = f.input :name
+    -# ファイル名のテキストフィールドに自動でフォーカスしてほしい
+    = f.input :name, input_html: {autofocus: true}
     = f.button :submit, 'rename'
 
 - if @mode == 'move'

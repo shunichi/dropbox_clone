@@ -1,6 +1,7 @@
 = simple_form_for @inode, html: {multipart: true} do |f|
   = f.hidden_field :parent_id, value: @inode.parent_id
   = f.hidden_field :inode_type, value: @inode.inode_type
-  = f.input :name if @inode.directory?
+  -# ディレクトリ名のテキストフィールドに自動でフォーカスしてほしい
+  = f.input :name, input_html: {autofocus: true} if @inode.directory?
   = f.file_field :content, id: 'js-upload' if @inode.file?
   = f.button :submit, 'create folder' if @inode.directory?
